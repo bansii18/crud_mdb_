@@ -42,9 +42,19 @@ app.get('/new', (req, res) => {
     res.render('new');
 });
 
-app.post('/', async (req, res) => {
-    await Order.create(req.body);
-    res.redirect('/');
+    app.post('/', async (req, res) => {
+    try {
+        await Order.create(req.body);
+        res.redirect('/');
+    } catch (err) {
+        res.redirect('/err');
+    }
+});
+
+
+app.get('/err', (req, res) => {
+    const errorMsg = req.query.msg || "Enter valid Input";
+    res.render('err', { errorMsg });
 });
 
 app.get('/:id/edit', async (req, res) => {
