@@ -19,11 +19,6 @@ app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// app.get('/', async (req, res) => {
-//     const orders = await Order.find();
-//     res.render('index', { orders });
-// });
-
 app.get('/', async (req, res) => {
     const { sortBy = 'orderID', sortDir = 'asc', filterOrderID, filterShipName, filterFreight, filterDate } = req.query;
 
