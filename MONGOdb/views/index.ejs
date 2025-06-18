@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+    <style>
+        table { width: 90%; margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid black; text-align: center; }
+    </style>
+</head>
+<body>
+    <!-- <h1 style="text-align:center;">Order List</h1>
+    <div style="text-align:center; margin: 10px;">
+        <button><a href="/new">Add New Order</a></button>
+    </div>
+
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Ship Name</th>
+            <th>Freight</th>
+            <th>Order Date</th>
+            <th>Actions</th>
+        </tr>
+        <% orders.forEach(order => { %>
+        <tr>
+            <td><%= order.orderID %></td>
+            <td><%= order.shipName %></td>
+            <td><%= order.freight %></td>
+            <td><%= order.orderDate.toDateString() %></td>
+            <td>
+                <button><a href="/<%= order._id %>/edit">Edit</a></button>
+                <form method="POST" action="/<%= order._id %>?_method=DELETE" style="display:inline;">
+                    <button class="delete" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        
+        <% }) %>
+    </table> -->
+
+    <h1 style="text-align:center;">Order List</h1>
+<div style="text-align:center; margin: 10px;">
+    <button><a href="/new">Add New Order</a></button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <% const toggleDir = (col) => (sortBy === col && sortDir === 'asc') ? 'desc' : 'asc'; %>
+            <th><a href="/?sortBy=orderID&sortDir=<%= toggleDir('orderID') %>">Order ID</a></th>
+            <th><a href="/?sortBy=shipName&sortDir=<%= toggleDir('shipName') %>">Ship Name</a></th>
+            <th><a href="/?sortBy=freight&sortDir=<%= toggleDir('freight') %>">Freight</a></th>
+            <th><a href="/?sortBy=orderDate&sortDir=<%= toggleDir('orderDate') %>">Order Date</a></th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <form method="GET" action="/">
+                <th><input type="text" name="filterOrderID" value="<%= filters.filterOrderID || '' %>" /></th>
+                <th><input type="text" name="filterShipName" value="<%= filters.filterShipName || '' %>" /></th>
+                <th><input type="text" name="filterFreight" value="<%= filters.filterFreight || '' %>" /></th>
+                <th><input type="date" name="filterDate" value="<%= filters.filterDate || '' %>" /></th>
+                <th><button type="submit">Filter</button></th>
+            </form>
+        </tr>
+    </thead>
+    <tbody>
+        <% orders.forEach(order => { %>
+        <tr>
+            <td><%= order.orderID %></td>
+            <td><%= order.shipName %></td>
+            <td><%= order.freight %></td>
+            <td><%= order.orderDate ? order.orderDate.toDateString() : '' %></td>
+            <td>
+                <a href="/<%= order._id %>/edit"><button>Edit</button></a>
+                <form method="POST" action="/<%= order._id %>?_method=DELETE" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+
+</body>
+</html>
